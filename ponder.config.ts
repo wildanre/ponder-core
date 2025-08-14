@@ -9,7 +9,8 @@ const getDatabaseConfig = () => {
   if (process.env.NODE_ENV === "production" || process.env.DATABASE_URL) {
     return {
       kind: "postgres" as const,
-      connectionString: process.env.DATABASE_URL || "postgresql://neondb_owner:npg_BV08OFhmSUgk@ep-withered-snow-a1ceu92e-pooler.ap-southeast-1.aws.neon.tech/neondb?sslmode=require&channel_binding=require",
+      connectionString: process.env.DATABASE_URL || "postgresql://neondb_owner:npg_BV08OFhmSUgk@ep-withered-snow-a1ceu92e.ap-southeast-1.aws.neon.tech/neondb?sslmode=require",
+      schema: process.env.DATABASE_SCHEMA || "public",
     };
   }
   
