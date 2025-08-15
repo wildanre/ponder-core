@@ -5,11 +5,14 @@ import { LendingPoolFactoryAbi } from "./abis/LendingPoolFactoryAbi";
 
 // Konfigurasi database berdasarkan environment
 const getDatabaseConfig = () => {
+  // Connection string yang benar untuk Neon (direct, bukan pooler)
+  const directConnectionString = "postgresql://neondb_owner:npg_BV08OFhmSUgk@ep-withered-snow-a1ceu92e.ap-southeast-1.aws.neon.tech/neondb?sslmode=require";
+  
   // Jika NODE_ENV=production atau ada DATABASE_URL, gunakan PostgreSQL
   if (process.env.NODE_ENV === "production" || process.env.DATABASE_URL) {
     return {
       kind: "postgres" as const,
-      connectionString: process.env.DATABASE_URL || "postgresql://neondb_owner:npg_BV08OFhmSUgk@ep-withered-snow-a1ceu92e.ap-southeast-1.aws.neon.tech/neondb?sslmode=require",
+      connectionString: process.env.DATABASE_URL || directConnectionString,
       schema: process.env.DATABASE_SCHEMA || "public",
     };
   }
