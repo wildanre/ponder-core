@@ -6,14 +6,10 @@ import { LendingPoolFactoryAbi } from "./abis/LendingPoolFactoryAbi";
 // Konfigurasi database berdasarkan environment
 const getDatabaseConfig = () => {
   // Connection string direct untuk write access (tanpa pooler)
-  const directConnectionString = "postgresql://neondb_owner:npg_BV08OFhmSUgk@ep-withered-snow-a1ceu92e.ap-southeast-1.aws.neon.tech/neondb?sslmode=require";
+  let connectionString = "postgresql://postgres.olbsisjccrlnstwzarbr:ucQKVTaBjPC9YFOX@aws-1-ap-southeast-1.pooler.supabase.com:5432/postgres";
   
   // Untuk Railway/production, pastikan gunakan direct connection
-  if (process.env.NODE_ENV === "production" || process.env.RAILWAY_ENVIRONMENT || process.env.DATABASE_URL) {
-    let connectionString = process.env.DATABASE_URL || directConnectionString;
-    
-    // Pastikan tidak menggunakan pooler untuk write operations
-    connectionString = connectionString.replace('-pooler', '');
+  if (process.env.NODE_ENV === "production" || process.env.RAILWAY_ENVIRONMENT ) {
     
     return {
       kind: "postgres" as const,
